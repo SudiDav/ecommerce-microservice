@@ -10,10 +10,22 @@ services:
       - mongo_data:/data/db
 
   basketdb: 
+    container_name: discountdb
+    environment: 
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=Good@2021
+      - POSTGRES_DB=DiscountDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  discountdb: 
     container_name: basketdb
     restart: always
     ports:
-      - "6379:6379"
+        - "6379:6379"
 
   portainer: 
     container_name: portainer
