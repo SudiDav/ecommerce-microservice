@@ -30,13 +30,13 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@sudidav.com
+      - PGADMIN_DEFAULT_EMAIL=admin@sudi.dev
       - PGADMIN_DEFAULT_PASSWORD=Good@2021
     restart: always
     ports:
         - "5050:80"
     volumes:
-      - pdagmin_data:/var/lib/pgadmin
+      - ./volumes/pgadmin-data:/var/lib/pgadmin
 
   portainer: 
     container_name: portainer
@@ -66,4 +66,14 @@ services:
       - basketdb
     ports:
       - "7001:80"
+
+  discount.api:
+    container_name: discount.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=Good@2021;"
+    depends_on:
+      - discountdb
+    ports:
+      - "7002:80" 
 
